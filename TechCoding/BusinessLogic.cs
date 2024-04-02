@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TechCoding
@@ -12,7 +14,6 @@ namespace TechCoding
         //Initialize class
         public BusinessLogic()
         {
-            
         }
 
         /// <summary>
@@ -48,29 +49,17 @@ namespace TechCoding
             var lstVehicle = new Dictionary<string, int>();
             // Declare a list string variable containing output
             var newLstOutput = new List<string>();
-            // Use a loop to browse each element of the lines variable
-            for (int i = 0; i < lines.Length; i++)
+
+            // Get distinct variable in lines array
+            var linesDistinct = lines.Distinct();
+            // Use a loop to browse each element of the linesDistinct array
+
+            foreach (var line in linesDistinct)
             {
-                // Declare a variable to count license plate numbers appears
-                var count = 1;
-                // Use a loop
-                for (int j = i + 1; j < lines.Length; j++)
-                {
-                    // Compare the data of each element to see if they are equal
-                    
-                    if (lines[i] == lines[j])
-                    {
-                        // If they are equal, add the count variable value by 1
-                        count++;
-                    }
-                }
-                // Declare a variable to check whether an element exists in the array or not
-                var checkExits = lstVehicle.ContainsKey(lines[i]);
-                // If it does not exist, add it to the array
-                if (!checkExits)
-                {
-                    lstVehicle.Add(lines[i], count);
-                }
+                //count line
+                var count = lines.Where(x => x == line).Count();
+                // add List
+                lstVehicle.Add(line, count);
             }
             string fileOutputPath = "../../../Out.txt";
             // call function create file
@@ -82,9 +71,8 @@ namespace TechCoding
             }
             // Write file with file path and list data
             File.WriteAllLines(fileOutputPath, newLstOutput);
-
         }
 
-      
+       
     }
 }
