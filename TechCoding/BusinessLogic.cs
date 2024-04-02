@@ -64,8 +64,6 @@ namespace TechCoding
             // Declare a list string variable containing output
             var newLstOutput = new List<string>();
 
-            // Get distinct variable in lines array
-            var linesDistinct = lines.Distinct();
             // Use a loop to browse each element of the linesDistinct array
 
             foreach (var line in lines)
