@@ -1,0 +1,7 @@
+License plate numbers 1 appears 4
+License plate numbers 2 appears 3
+License plate numbers 3 appears 4
+License plate numbers 4 appears 2
+License plate numbers 5 appears 1
+License plate numbers 6 appears 1
+License plate numbers 7 appears 1
