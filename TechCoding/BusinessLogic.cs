@@ -14,6 +14,7 @@ namespace TechCoding
         //Initialize class
         public BusinessLogic()
         {
+            //SeedingData();
         }
 
         /// <summary>
@@ -40,9 +41,22 @@ namespace TechCoding
                 file.Close();
             }
         }
+        void SeedingData()
+        {
+            var data = new List<string>();
+            for(int i = 0; i < 1000000;i ++)
+            {
+                Random rand = new Random();
+                var num = rand.Next(1, 10000);
+                data.Add(num.ToString());
+            }
+            File.WriteAllLines("../../../In.txt", data);
+        }
         //Initialize the calculation function
         public void Calculation()
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            watch.Start();
             // call Function ReadDataFromFile and get data return
             var lines = ReadDataFromFile("../../../In.txt");
             // Declare a dictionary variable containing the key which is the license plate and the value which is the number of occurrences
@@ -54,12 +68,16 @@ namespace TechCoding
             var linesDistinct = lines.Distinct();
             // Use a loop to browse each element of the linesDistinct array
 
-            foreach (var line in linesDistinct)
+            foreach (var line in lines)
             {
-                //count line
-                var count = lines.Where(x => x == line).Count();
-                // add List
-                lstVehicle.Add(line, count);
+                if (lstVehicle.ContainsKey(line))
+                {
+                    lstVehicle[line]++;
+                }
+                else
+                {
+                    lstVehicle.Add(line, 1);
+                }
             }
             string fileOutputPath = "../../../Out.txt";
             // call function create file
@@ -71,6 +89,13 @@ namespace TechCoding
             }
             // Write file with file path and list data
             File.WriteAllLines(fileOutputPath, newLstOutput);
+            watch.Stop();
+            TimeSpan ts = watch.Elapsed;
+
+            // Format and display the TimeSpan value.
+            string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                ts.Hours, ts.Minutes, ts.Seconds,
+                ts.Milliseconds / 10);
         }
 
        
